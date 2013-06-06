@@ -1,0 +1,26 @@
+#general
+#cookbook 'nginx', github: 'gchef/nginx-cookbook', ref: 'v2.9.0'
+
+#continuous deployment bits
+# cookbook 'apache2'
+# cookbook 'apt'
+# cookbook 'bluepill'
+# cookbook 'build-essential'
+# cookbook 'daemontools'
+# cookbook 'hosts'
+# cookbook 'ntp'
+
+# cookbook 'resolver'
+# cookbook 'runit'
+# cookbook 'ucspi-tcp'
+
+cookbook 'gerrit', github: 'easybake-recipes/gerrit', ref: 'master'
+cookbook 'foodcritic', github: 'easybake-recipes/foodcritic', ref: 'master'
+cookbook 'nodejs'
+cookbook 'maven'
+cookbook 'sqlite'
+cookbook 'redisio'
+cookbook 'redis', github: 'miah/chef-redis', ref: 'master'
+cookbook 'nginx', github: 'gcymbalski/nginx', ref: 'master'
+cookbook 'cd-tools', github: 'gcymbalski/cd-tools', ref: 'master'
+cookbook 'jenkins', github: 'gcymbalski/jenkins', ref: 'master'
