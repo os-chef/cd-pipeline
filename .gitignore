@@ -1,0 +1,4 @@
+chef-repo/vendor
+chef-repo/cookbooks
+env.sh
+*.pem

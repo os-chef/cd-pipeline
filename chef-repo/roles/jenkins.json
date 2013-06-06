@@ -1,0 +1,86 @@
+{
+  "name": "jenkins",
+  "description": "Jenkins and Gerrit Server",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "build_essential": {
+      "compiletime": true
+    },
+    "gerrit": {
+      "http_proxy": {
+        "host_name": "review.openstack.can.cd"
+      },
+      "canonical_url": "http://review.openstack.can.cd/",
+      "smtp_server": "localhost",
+      "smtp_from": "Code Review <no-reply@openstack.can.cd>"
+    },
+    "jenkins": {
+      "http_proxy": {
+        "host_name": "jenkins.openstack.can.cd",
+        "variant": "nginx"
+      },
+      "server": {
+	"data_dir": "/var/lib/jenkins",
+        "host": "localhost",
+        "plugins": [
+          "git",
+          "git-client",
+          "build-pipeline-plugin",
+          "github-api",
+          "github",
+          "greenballs",
+          "analysis-core",
+          "warnings",
+          "parameterized-trigger",
+          "cobertura",
+          "sounds",
+          "throttle-concurrents",
+          "build-flow-plugin",
+          "groovyaxis"
+        ]
+      }
+    },
+    "cd-tools": {
+      "jenkins": {
+        "git_email": "gerrit@hippiehacker.org",
+        "git_name": "Openstack Jenkins CD Bot",
+        "manual_steps": [ "prod" ],
+        "pipeline": [ "integration", "staging", "prod" ],
+        "chef_server_url": "https://api.opscode.com/organizations/openstack-chef",
+        "node_name": "jenkins",
+        "client_key": "/var/lib/jenkins/.chef/jenkins.pem"
+      },
+      "gerrit": {
+        "hostname": "localhost",
+        "front_end_url": "http://review.openstack.can.cd/",
+        "admin_user": "jenkins",
+        "username": "jenkins"
+      }
+    }
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[apt]",
+    "recipe[yum]",
+    "recipe[build-essential]",
+    "recipe[nginx::source]",
+    "recipe[java]",
+    "recipe[jenkins::server]",
+    "recipe[jenkins::proxy_nginx]",
+    "recipe[postgresql::ruby]",
+    "recipe[postgresql::server]",
+    "recipe[gerrit]",
+    "recipe[foodcritic]",
+    "recipe[nodejs]",
+    "recipe[maven]",
+    "recipe[sqlite]",
+    "recipe[redisio::install]",
+    "recipe[redisio::enable]",
+    "recipe[cd-tools::metarepo]",
+    "recipe[cd-tools]"
+  ],
+  "env_run_lists": {
+  }
+}
