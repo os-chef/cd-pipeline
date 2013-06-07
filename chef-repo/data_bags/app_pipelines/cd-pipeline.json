@@ -1,0 +1,43 @@
+{
+  "id": "cd-pipeline",
+  "deployment_role": "cd-pipeline",
+  "deployment_watch_interval": "30",
+  "deployment_watch_timeout": "300",
+  "gerrit_project": "cd-pipeline",
+  "gerrit_host_name": "review.openstack.can.cd",
+  "chef_server_url": "https://api.opscode.com/organizations/openstack-chef",
+  "node_name": "jenkins",
+  "client_key": "/var/lib/jenkins/.chef/jenkins.pem",
+  "github_browser": "https://github.com/os-chef",
+  "food_critic_options": "-f correctness -f ~FC001 -f ~FC017 -t correctness",
+  "freestyle": {
+    "unit-tests": {
+      "tasks": [
+      ],
+      "junit_result": "junit.xml"
+    },
+    "functional-tests": {
+      "tasks": [
+      ],
+      "junit_result": "funtests.xml"
+    },
+    "release": {
+      "tasks": [ 
+      ],
+      "junit_result": "junit.xml",
+      "prefix": "/srv/cd-pipeline-app",
+      "maintainer": "mcclimans@opscode.com",
+      "package_file": "cd-pipeline-app.zip",
+      "package_type": [ "zip" ]
+    }
+  },
+  "deploy_pattern": {
+    "dev": [ "a" ],
+    "integration": [ "a" ],
+    "staging": [ "a "],
+    "prod": [ "a" ]
+  },
+  "assets": [
+    "pkg/*.txt"
+  ]
+}
